@@ -20,10 +20,69 @@
 - PostgreSQL 12+
 
 ### Инструкции по запуску
-1. Клонировать репозиторий
-2. Установить зависимости: `go mod download`
-3. Настроить PostgreSQL и создать базу данных
-4. Запустить: `wails dev`
+
+#### 1. Подготовка PostgreSQL
+```bash
+# Убедитесь, что PostgreSQL запущен и активен
+sudo systemctl start postgresql
+sudo systemctl enable postgresql
+
+# Создайте базу данных и пользователя
+sudo -u postgres psql
+CREATE DATABASE todoapp;
+CREATE USER todouser WITH ENCRYPTED PASSWORD 'your_password';
+GRANT ALL PRIVILEGES ON DATABASE todoapp TO todouser;
+\q
+```
+
+#### 2. Настройка проекта
+```bash
+# Клонировать репозиторий
+git clone <repository-url>
+cd testTask/todo-app
+
+# Установить зависимости Go
+go mod download
+
+# Установить зависимости frontend
+cd frontend
+npm install
+cd ..
+```
+
+#### 3. Конфигурация базы данных
+Создайте файл `.env` в корне проекта `todo-app/` и укажите данные для подключения к PostgreSQL:
+```env
+DB_HOST=localhost
+DB_PORT=5432
+DB_USER=todouser
+DB_PASSWORD=your_password
+DB_NAME=todoapp
+DB_SSLMODE=disable
+```
+
+#### 4. Установка Wails CLI (если не установлен)
+```bash
+go install github.com/wailsapp/wails/v2/cmd/wails@latest
+```
+
+#### 5. Запуск приложения
+
+**Для разработки:**
+```bash
+wails dev
+```
+
+**Для сборки production версии:**
+```bash
+wails build
+```
+
+#### Проверка подключения к базе данных
+Приложение автоматически применит миграции при первом запуске. Если возникают проблемы с подключением, проверьте:
+- PostgreSQL запущен: `sudo systemctl status postgresql`
+- Данные в `.env` файле корректны
+- Пользователь имеет права доступа к базе данных
 
 ## Checklist выполненных функций
 
