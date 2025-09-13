@@ -1,0 +1,38 @@
+{
+  "compilerOptions": {
+    // --- Target and Module Settings ---
+    "target": "ES6",                     // Compile down to a modern, widely supported JavaScript version.
+    "lib": ["dom", "dom.iterable", "esnext"], // Include standard browser APIs and modern JS features.
+    "module": "esnext",                  // Use the latest module system.
+    "moduleResolution": "node",          // How TypeScript finds modules. 'node' is standard.
+
+    // --- JSX Settings (Fixes the '--jsx' error) ---
+    "jsx": "react-jsx",                  // Process JSX for React 17+ (no 'import React' needed everywhere).
+
+    // --- Interoperability (Fixes the 'esModuleInterop' error) ---
+    "esModuleInterop": true,             // Enables compatibility with older module systems.
+    "allowSyntheticDefaultImports": true,// Works hand-in-hand with esModuleInterop.
+
+    // --- Strictness & Best Practices ---
+    "strict": true,                      // Enables all strict type-checking options.
+    "forceConsistentCasingInFileNames": true, // Prevents case-sensitive path issues.
+    "skipLibCheck": true,                // Speeds up compilation by not checking library (.d.ts) files.
+
+    // --- Other Settings ---
+    "allowJs": true,                     // Allow JavaScript files to be compiled.
+    "resolveJsonModule": true,           // Allow importing .json files.
+    "isolatedModules": true,             // Ensures each file can be transpiled without relying on other imports.
+    "noEmit": true,                      // Do not emit output files (Babel or another tool will handle this).
+    
+    // --- Path mapping ---
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  },
+  "include": [
+    "src/**/*.tsx",
+    "src/**/*.ts"
+  ],
+  "exclude": ["node_modules"]
+}
